@@ -14,6 +14,9 @@ var testObject = {
 var testObject1 = {
     message: 'I am inside the test object1'
 }
+var testObject2 = {
+    message: 'I am inside the test object2'
+}
 
 before(done => {
     db = database.create(testDir);
@@ -62,17 +65,18 @@ describe('database.get', () => {
     });
 });
 
-// describe('dbCreate.getAll', function(){
-//     it('returns an array of all objects', done => {
-//         dbCreate.getAll('./test/test-dir', (err, contents) => {
-//             if (err) return done(err);
-            
-//             assert.deepEqual(
-//                 contents, 
-//                 ['BAR', 'FOO', 'QUX']
-//             );
+describe('dbCreate.getAll', function(){
+    it('starts by saving testObject2 to findMe which already has testObject', done => {
+        db.save('findMe', testObject2, (err, result) => {
+            assert.ok(result.hasOwnProperty('_id'));
+            done();
+        })
+    });
 
-//             done();
-//         });
-//     });
-// });
+    it('returns an array of all objects from findMe', done => {
+        db.getAll('findMe', (err, contents) => {
+            assert.deepEqual(contents, [testObject, testObject2]);
+            done();
+        });
+    });
+});
