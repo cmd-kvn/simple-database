@@ -66,7 +66,7 @@ describe('database.update', () => {
     });
 });
 
-describe.only('database.remove', () => {
+describe('database.remove', () => {
     it('starts with a saved object', (done) => {
         db.save('removeTest', testObject3, (err, result) => {
             assert.ok(result.hasOwnProperty('_id'));
