@@ -66,23 +66,21 @@ describe('database.update', () => {
     });
 });
 
-// describe('database.remove', () => {
-//     it('starts with a saved object', (done) => {
-//         db.save('removeTest', testObject3, (err, result) => {
-//             assert.ok(result.hasOwnProperty('_id'));
-//             done();
-//         })
-//     });
+describe.only('database.remove', () => {
+    it('starts with a saved object', (done) => {
+        db.save('removeTest', testObject3, (err, result) => {
+            assert.ok(result.hasOwnProperty('_id'));
+            done();
+        })
+    });
 
-//     it('returns the number of files removed', (done) => {
-//         db.remove('removeTest', testObject3._id, (err, result) => {
-//             stdout.write(`err is..${err}\n`)
-//             stdout.write(`result in test is ${result}`);
-//             assert.equal(null, result);
-//             done();
-//         })
-//     });
-// });
+    it('returns the number of files removed', (done) => {
+        db.remove('removeTest', testObject3._id, (err, result) => {
+            assert.equal(1, result);
+            done();
+        })
+    });
+});
 
 describe('database.get', () => {
     it('returns null when the _id can not be found', (done) => {
