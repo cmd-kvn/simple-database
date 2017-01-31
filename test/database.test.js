@@ -17,6 +17,12 @@ var testObject1 = {
 var testObject2 = {
     message: 'I am inside the test object2'
 }
+var testObject3 = {
+    message: 'I am inside the test object3'
+}
+var testObject4 = {
+    message: 'I am inside the test object4'
+}
 
 before(done => {
     db = database.create(testDir);
@@ -41,6 +47,42 @@ describe('database.save', () => {
     });
 
 });
+
+describe('database.update', () => {
+    it('starts with a saved object', (done) => {
+        db.save('updateTest', testObject4, (err, result) => {
+            assert.ok(result.hasOwnProperty('_id'));
+            done();
+        })
+    })
+    
+    it('returns the object to save with updates', (done) => {
+        stdout.write('changes are made to the object\n');
+        testObject4.newAddition = 'this is a modification';
+        db.update('updateTest', testObject4, (err, result) => {
+            assert.ok(result.hasOwnProperty('newAddition'));
+            done();
+        })
+    });
+});
+
+// describe('database.remove', () => {
+//     it('starts with a saved object', (done) => {
+//         db.save('removeTest', testObject3, (err, result) => {
+//             assert.ok(result.hasOwnProperty('_id'));
+//             done();
+//         })
+//     });
+
+//     it('returns the number of files removed', (done) => {
+//         db.remove('removeTest', testObject3._id, (err, result) => {
+//             stdout.write(`err is..${err}\n`)
+//             stdout.write(`result in test is ${result}`);
+//             assert.equal(null, result);
+//             done();
+//         })
+//     });
+// });
 
 describe('database.get', () => {
     it('returns null when the _id can not be found', (done) => {
