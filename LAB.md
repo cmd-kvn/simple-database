@@ -30,7 +30,7 @@ Your file store should:
     * `.update(<table>, <objectToSave>)`
       * returns `<objectToSave>`
       * error if object does not have id property, or id does not exist
-    * `.remove(<id>, cb)`
+    * `.remove(<table>, <id>, cb)`
       * returns number of files removed
     * `.get(<table>, <id>, cb)`
       * returns object with that id

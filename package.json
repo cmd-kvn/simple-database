@@ -1,0 +1,32 @@
+{
+  "name": "simple-database",
+  "version": "1.0.0",
+  "description": "creating a very simple database using json files and the file system",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "simpleid": "^1.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "mocha": "^3.2.0",
+    "rimraf": "^2.5.4"
+  },
+  "scripts": {
+    "test": "mocha",
+    "test:watch": "mocha -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cmd-kvn/simple-database.git"
+  },
+  "author": "kevin wong",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cmd-kvn/simple-database/issues"
+  },
+  "homepage": "https://github.com/cmd-kvn/simple-database#readme"
+}
