@@ -7,7 +7,7 @@ const server = require('../lib/db-server');
 const PORT = 65000;
 const TCP_TEST_DIR = './test/tcp-test-dir';
 
-describe.only('db server', () => {
+describe('db server', () => {
 
     // start with a clean directory    
     before(done => {
