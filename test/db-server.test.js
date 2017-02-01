@@ -77,6 +77,21 @@ describe.only('db server', () => {
         client.write(JSON.stringify(message));
     });
 
+   it('lets the client getAll the saved objects', done => {
+        const message = {
+            method: 'getAll',
+            table: 'shoes'
+        };
+
+        client.once('data', data => {
+            const response = JSON.parse(data);
+            assert.deepEqual(response.data, [saved]);
+            done()
+        });
+
+        client.write(JSON.stringify(message));
+    });
+
     it('lets the client update a saved object', done => {
         const message = {
             method: 'update',
@@ -91,30 +106,29 @@ describe.only('db server', () => {
 
         client.once('data', data => {
             const response = JSON.parse(data);
-            const updated = response.data;
-            assert.ok(updated.hasOwnProperty('colors'));
+            assert.ok(response.data.hasOwnProperty('colors'));
             done();
         });
 
         client.write(JSON.stringify(message));
     });
 
-    //   it('lets the client getAll the saved objects', done => {
-    //     const message = {
-    //         method: 'getAll',
-    //         table: 'shoes'
-    //     };
+    it('lets the client remove a saved object', done => {
+        const message = {
+            method: 'remove',
+            table: 'shoes',
+            data: saved._id
+        };
 
-    //     client.once('data', data => {
-    //         process.stdout.write(`data is ${data}\n`)
-    //         const response = JSON.parse(data);
-    //         const gotAll = response.data;
-    //         process.stdout.write(`response is ${response}\n`);
-    //         assert.deepEqual(gotAll, saved);
-    //         done()
-    //     });
+        client.once('data', data => {
+            const response = JSON.parse(data);
+            assert.equal(response.data,1);
+            done();
+        });
 
-    //     client.write(JSON.stringify(message));
-    // });
+        client.write(JSON.stringify(message));
+    });
+
+   
 
 });
