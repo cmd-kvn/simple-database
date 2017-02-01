@@ -70,10 +70,51 @@ describe.only('db server', () => {
         client.once('data', data => {
             const response = JSON.parse(data);
             const got = response.data;
-            assert.deepEqual(got, saved._id);
+            assert.deepEqual(got._id, saved._id);
             done();
         });
 
         client.write(JSON.stringify(message));
     });
+
+    it('lets the client update a saved object', done => {
+        const message = {
+            method: 'update',
+            table: 'shoes',
+            data: {
+                name: 'Space Jams',
+                model: 'AJXI',
+                _id: saved._id,
+                colors: 'black/white/royal'
+            }
+        };
+
+        client.once('data', data => {
+            const response = JSON.parse(data);
+            const updated = response.data;
+            assert.ok(updated.hasOwnProperty('colors'));
+            done();
+        });
+
+        client.write(JSON.stringify(message));
+    });
+
+    //   it('lets the client getAll the saved objects', done => {
+    //     const message = {
+    //         method: 'getAll',
+    //         table: 'shoes'
+    //     };
+
+    //     client.once('data', data => {
+    //         process.stdout.write(`data is ${data}\n`)
+    //         const response = JSON.parse(data);
+    //         const gotAll = response.data;
+    //         process.stdout.write(`response is ${response}\n`);
+    //         assert.deepEqual(gotAll, saved);
+    //         done()
+    //     });
+
+    //     client.write(JSON.stringify(message));
+    // });
+
 });
